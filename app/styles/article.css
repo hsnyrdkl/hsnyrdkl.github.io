@@ -1,12 +1,16 @@
-@import 'init.css';
-@import 'dracula.css';
-@import 'katex.css';
+@import "init.css";
+@import "dracula.css";
+@import "katex.css";
 
 #main-container {
   max-width: 800px;
   margin: 90px auto auto;
 }
 
+#index-content {
+  margin-right: 100px;
+  margin-top: 30px;
+}
 #article-title {
   font-size: 24px;
   font-weight: 700;
@@ -177,22 +181,22 @@
 
 #article-content-container code,
 #article-content-container code span {
-  font-family: 'Consolas', 'Monaco', 'Ubuntu Mono', 'Andale Mono', monospace;
+  font-family: "Consolas", "Monaco", "Ubuntu Mono", "Andale Mono", monospace;
 }
 
 #article-content-container p code,
 #article-content-container li code {
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   padding: 0 5px 0 5px;
 }
 
 #article-content-container blockquote {
-  border-left: 3px #DFDFDF solid;
+  border-left: 3px #dfdfdf solid;
   padding-left: 15px;
 }
 
 #article-content-container blockquote p {
-  font-family: 'Noto Serif KR', serif;
+  font-family: "Noto Serif KR", serif;
   font-style: italic;
 }
 
@@ -245,7 +249,7 @@
 
 #article-content-container .table-of-contents li:before {
   content: counters(item, ".") ". ";
-  counter-increment: item
+  counter-increment: item;
 }
 
 #article-content-container section {
@@ -253,11 +257,11 @@
 }
 
 #article-content-container section .katex * {
-  font-family: 'Times New Roman', serif;
+  font-family: "Times New Roman", serif;
 }
 
 #article-content-container p .katex * {
-  font-family: 'Times New Roman', serif;
+  font-family: "Times New Roman", serif;
   font-size: 16px;
 }
 
@@ -283,7 +287,10 @@
   list-style: none;
 }
 
-#article-content-container .footnotes > .footnotes-list > .footnote-item:before {
+#article-content-container
+  .footnotes
+  > .footnotes-list
+  > .footnote-item:before {
   content: "[" counter(list) "] ";
   counter-increment: list;
 }
@@ -292,4 +299,3 @@
   font-size: 14px;
   display: inline;
 }
-

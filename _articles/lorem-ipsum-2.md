@@ -1,7 +1,7 @@
 ---
 id: 2
-title: "Lorem ipsum 2"
-subtitle: "Sed sit amet arcu a diam tincidunt porta"
+title: "Başlığım"
+subtitle: "Alt Başlık"
 date: "2019.12.08"
 tags: "tag1, tag2"
 ---
@@ -16,15 +16,15 @@ Pellentesque eu erat vitae metus dignissim tempus. Duis malesuada magna eu risus
 
 Suspendisse porttitor pellentesque ante, dapibus ullamcorper risus commodo eu. Duis sapien mi, mollis vel odio nec, iaculis pharetra nunc. Aliquam quam nisi, cursus `pharetra` feugiat nec, tristique quis libero. Ut blandit sit amet lacus eget elementum. Fusce elit nisi, feugiat ornare commodo at, varius sed augue.
 
-* Morbi in est sem.
-* Nulla commodo eu justo in sollicitudin.
-* Suspendisse pretium consectetur est.
+- Morbi in est sem.
+- Nulla commodo eu justo in sollicitudin.
+- Suspendisse pretium consectetur est.
 
 Quisque imperdiet massa `dolor`, sed facilisis $`4 - (log{_2} 2 + 1) = 2`$ mi posuere ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat gravida ipsum id pharetra. Proin tortor lectus, tempor sed sapien et, molestie ullamcorper urna. `Curabitur` et lacinia nulla. Sed ornare vel orci egestas mattis. Praesent luctus elementum mollis. Vestibulum molestie lectus a orci lacinia volutpat.
 
 ```rust
 fn main() {
-  println!("hello, world!");
+println!("hello, world!");
 }
 ```
 
