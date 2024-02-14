@@ -1,0 +1,135 @@
+<!doctypehtml>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Concurrency Nedir?</title>
+
+    <meta name="viewport"content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible"content="ie=edge">
+
+    <link rel="shortcut icon"href="../assets/favicon.ico"type="image/x-icon">
+    <link rel="preload"href="../styles/article.css"as="style">
+    <link rel="stylesheet"href="../styles/article.css">
+    <link rel="preconnect"href="https://fonts.googleapis.com">
+    <link rel="preconnect"href="https://fonts.gstatic.com"crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"rel="stylesheet">
+  </head>
+  <body>
+    <header id="top-container"role="navigation">
+      <head>
+  <script src="https://kit.fontawesome.com/886d3c9542.js"crossorigin="anonymous"></script>
+  <nav>
+    <a class="info-link"href="/">
+      <i class="fa-brands fa-diaspora"></i>
+      <h1 style="font-size: 18px">Hasan</h1>
+      <span style="font-size: 18px">Yurdakul</span>
+    </a>
+    <small>
+      <a id="home"class="info-link"href="/">🏡Home</a> |
+      <a id="about"class="info-link"href="/about.html">👀About</a> |
+      <a id="works"class="info-link"href="/works.html">🔥Works</a> |
+      <a id="articles"class="info-link"href="/articles.html">📚Articles</a>
+    </small>
+  </nav>
+</head>
+
+    </header>
+    <main id="main-container">
+      <article id="article-container">
+        <h1 id="article-title">Concurrency Nedir?</h1>
+        
+        <h2 id="article-subtitle">Javascriptte concurrency modeli nasıl işler?</h2>
+        
+        <time id="article-date"> 2024.02.14 </time>
+        <section id="article-content-container"><details><summary>Table of Contents</summary>
+<p><div class="table-of-contents"><ul><li><a href="#call-stack%2C-heap-ve-queue">Call Stack, Heap ve Queue</a><li><a href="#concurrency-nedir%3F">Concurrency nedir?</a><li><a href="#concurrency-nas%C4%B1l-%C3%A7al%C4%B1%C5%9F%C4%B1r%3F">Concurrency nasıl çalışır?</a><li><a href="#event-loop">Event Loop</a><li><a href="#callback">Callback</a><li><a href="#promise%E2%80%99ler">Promise’ler</a><li><a href="#async%2Fawait">Async/await</a><li><a href="#sonu%C3%A7">Sonuç</a></ul></div><p></p>
+</details>
+<p>JavaScript, <strong>single-thread</strong> bir dildir. Bu da, aynı anda sadece bir görevi yerine getirebilir anlamına gelir. Bu threadler event-based’tir ve yalnızca event’ların gerçekleşmesiyle triggerlanırlar.</p>
+<p>Genellikle, bir programın diğer bölümleri bozmadan normal akışının dışında çalışması, daha iyi bir uygulama performansı sağlamak için gereklidir. Ancak, JavaScript dili, aynı anda birden fazla ifadenin yürütülmesine izin verecek şekilde tasarlanmamıştır. İfadeler birbirini takip ederek çalışır. Peki JavaScript birbirini bloklamayan görevleri, diğer ifadeleri etkilemeden nasıl gerçekleştiriyor?</p>
+<h2 id="call-stack%2C-heap-ve-queue"tabindex="-1">Call Stack, Heap ve Queue</h2>
+<p>JavaScript single-thread bir dil olmasına rağmen, tarayıcı karmaşık işlemler gerçekleştirmek için yeterince güçlüdür. Call stackler, heapler ve queuelar, tarayıcının bu işlemleri gerçekleştirmesine izin veren birer parçasıdır.</p>
+<p><strong>Heap:</strong> Kodumuzda tanımlanan nesnelerin ve değişkenlerin depolandığı yer veya bellek. Tarayıcı içindeki değişkenlere ve nesnelere bellek burada tahsis edilir.</p>
+<p><strong>Callback queue</strong>: Kodların yürütülmeden önce sıraya konulduğu ve depolandığı yerdir. Queue, first-in, first-out (FIFO) prensibine göre çalışır.</p>
+<p><strong>Call Stack:</strong> Call stack, function call’ları tutar. Programın yürütülmesi sırasında her fonksiyon stackin en üstüne eklenir ve tamamlandıktan sonra çıkarılır. Programın yürütülmesi sırasında çağrılan fonksiyonları kaydeden basit bir veri yapısıdır.</p>
+<p>Her fonksiyon, expressionları ve statementları içeren bir stack frame oluşturur ve ardından stacke eklenir. Bir değer return edildiğinde, stackten çıkarılır.</p>
+<p>Birbiri içerisinde nested şekilde bulunan tüm fonksiyonlar için stack frame oluşturulur. Stack içerisindeki öğeler genellikle, first-in, last-out (FILO) şeklinde sıralanır.</p>
+<h2 id="concurrency-nedir%3F"tabindex="-1">Concurrency nedir?</h2>
+<p>Concurrency, aynı anda birden fazla hesaplamanın gerçekleşmesine izin verir. Aynı anda birden fazla görevin gerçekleştirilme fikrini açıklamak için kullanılır. <strong>Parallelism</strong> ile karıştırılmamalıdır.</p>
+<p>Concurrency, farklı hedeflere sahip farklı görevleri aynı anda gerçekleştirme kavramını ifade ederken, parallelism, programın çeşitli bölümlerinin aynı anda bir görevi gerçekleştirmesini içerir.</p>
+<ul>
+<li><strong>Parallelism</strong>, programların daha hızlı çalışmasını sağlamak için kullanılan bir computation türüdür. Bu programlama yaklaşımında, işlemler paralel olarak yürütülür. Programlar küçük tasklere bölünür ve aynı hedefe ulaşmak için aynı anda gerçekleştirilirler.</li>
+<li><strong>Multi-threading</strong>, aynı kaynağı paylaşırken bağımsız olarak iki veya daha fazla talimatın yürütüldüğü bir programlama tekniğidir. JavaScript, tasarım gereği multi-thread bir dil değildir, ancak modern web workerların kullanımı ile mutl-threading elde edilebilir.</li>
+</ul>
+<h2 id="concurrency-nas%C4%B1l-%C3%A7al%C4%B1%C5%9F%C4%B1r%3F"tabindex="-1">Concurrency nasıl çalışır?</h2>
+<p>JavaScript’in concurrency modeli, kodu eşzamanlı olarak yürüten event loop’una dayanır. JavaScript, varsayılan olarak, event looplar, call backler, promiseler veya async/await kullanarak asenkron bir programlama modeliyle concurrency oluşturur. Rust ve Go gibi bazı diller, concurrent tasklerin yürütülmesi sırasında basitlik ve performans sunarlar. Ancak, JavaScript concurrency için tasarlanmamıştır, buna rağmen JavaScript event-loop ile server ve client sided olarak concurrent çalışabilir.</p>
+<h2 id="event-loop"tabindex="-1">Event Loop</h2>
+<p>Event loop, fonksiyonları asenkron olarak yürütmek için JavaScript tarafından benimsenen modeldir. Queue’ya alınan görevleri yürütmekten sorumludur ve JavaScript’in multi-thread görevleri gerçekleştirebilme yeteneğinin arkasındaki sırdır.</p>
+<p>JavaScript, bir betik yürütmesini en üstten başlatır ve son satıra kadar devam eder. Genellikle yürütülecek işlevler callback queue’da saklanır.</p>
+<p>Event loop sürekli olarak hem callback queue’yu hem de call stack’i izler. Call stack’in boş olup olmadığını kontrol eder ve callback queue’daki bir sonraki öğeyi call stack’e pushlar. Call stack boş değilse event loop hiçbir şey yapmaz. Call stack boş olana kadar bekler ve callback queue’daki bir sonraki işlevi call stack’e pushlar.</p>
+<p>Aşağıdaki resim JavaScript runtime’ını, Web API’yi, call stack’i ve event loop’u göstermektedir:</p>
+<p><img src="/images/concurrency.png"alt="image"loading="lazy"decoding="async"width="1146"height="762"></p>
+<p>Event loop sürekli olarak callback queue’dan fonksiyonları alır ve call stack boşaldığında bunları call stack’e iter. Call stack’teki görev tamamlandıktan sonra, event loop callback queue’daki bir sonraki öğeyi alır ve işlemeye başlamak için call stack’e gönderir. Bu, olay döngüsünün nasıl çalıştığının temel prensibidir.</p>
+<h2 id="callback"tabindex="-1">Callback</h2>
+<p>Node.js, hızlı I/O işlemlerini gerçekleştirmek için callback’leri yoğun bir şekilde kullanır. Callbackler, başka bir fonksiyonun argümanı olarak geçen işlevlerdir. JavaScript’te callbackler, uygulamaların beklenmedik donmasını azaltmak için kullanılır.</p>
+<p>Bir callback fonksiyonu, kendisini bir argüman olarak alan dıştaki fonksiyonun tamamlanmasından sonra yürütülür. Başka bir fonksiyonun tamamlanmasının hemen ardından bir fonksiyonu çalıştırmak için kullanılır. setTimeout() yöntemi, başka bir işlevi argüman olarak alan bir işlevin bir örneğidir. İşte bir örnek:</p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> greeting = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Hello there&quot;</span>);
+};
+<span class="hljs-built_in">setTimeout</span>(greeting, <span class="hljs-number">3000</span>);
+</code></pre>
+<p>Callback fonksiyonu (greeting), setTimeout() metoduna bir argüman olarak iletilir ve setTimeout() işlemini tamamladıktan sonra 3 saniye bekler ve hemen sonra yürütülür.</p>
+<p>Callback fonksiyonları, JavaScript’in kodları asenkron olarak yürütmesine izin verir. setTimeout() fonksiyonu yürütülürken, diğer ifadeler eş zamanlı olarak yürütülebilir. Bu yöntemi kullanarak, JavaScript concurrent çalışabilir ve birden fazla ifadeyi aynı anda yürütebilir.</p>
+<h2 id="promise%E2%80%99ler"tabindex="-1">Promise’ler</h2>
+<p>Promise’ler, JavaScript’te asenkron görevleri ele almak için kullanılabilecekleri anlamında callback’lere benzerler. Promise’lerin benimsenmesinden önce, görevleri asenkron olarak ele almak için callback fonksiyonları kullanılırdı. Ancak, çoklu nested callback fonksiyonlarını ele almak bir sorun haline geldi ve bu da programa gereksiz karmaşıklık ekledi. Promise’ler, nested callback’leri ele almanın ideal yolu haline geldi.</p>
+<p>Bir promise, bir asenkron işlemden sonra bir değer üreten bir nesnedir. Asenkron işlemin başarılı olup olmadığını belirlemek için iyi bir yoldur. Bir promise kullanımına dair örnek aşağıda verilmiştir:</p>
+<pre class="hljs"><code>  <span class="hljs-keyword">let</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) {
+    <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&quot;done&quot;</span>)
+    <span class="hljs-title function_">reject</span>(<span class="hljs-string">&quot;error&quot;</span>)
+}
+
+  promise.<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(value)
+})
+</code></pre>
+<p>Bir promise, resolved ve rejected promise’leri bitirmek için <em>.then</em> ve <em>.catch</em> yöntemlerini kullanır.</p>
+<p>Promisler asenkron olarak çalıştığından, yukarıdaki kodda olduğu gibi işlevlerin işlemi promise’ın sonucuna bağlı olan fonksiyonlar <em>.then</em> yöntemi içine yerleştirilmelidir. Bu şekildeki kodlar yalnızca promise alındığında çalışır.</p>
+<h2 id="async%2Fawait"tabindex="-1">Async/await</h2>
+<p>Promisleri kullanmak ve zincirlemek karmaşık ve anlaşılması zor olabilir, bu sorunu çözmek için async/await ortaya çıktı. Asenkron kodları verimli bir şekilde çalıştırmak ve tanımlamak için async/await kullanılır.</p>
+<p><strong>async</strong> anahtar kelimesi, bir işlevin asenkron olduğunu tanımlamak için bir işlevin önüne yerleştirilir ve işlevin her zaman bir promise döndürdüğünden emin olur.</p>
+<p><strong>await</strong> anahtar kelimesi, bir promise dönene kadar işlevi geciktirir. Bir fonksiyon, bir promise alınana kadar yürütmesini tamamlamaz. await anahtar kelimesi, bir async işlevi dışında kullanılamaz.</p>
+<p>Örnek bir async/await kodu:</p>
+<pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">await</span> <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Welcome Back!&quot;</span>)
+    }, <span class="hljs-number">2000</span>)
+}
+
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Hello&quot;</span>)
+</code></pre>
+<p>Asenkron fonksiyonların işlenmesi zaman alabilir ve diğer görevlerin yürütülmesini engellemeden arka planda eşzamanlı olarak çalışabilir.</p>
+<p>JavaScript’teki asenkron işlevler async anahtar kelimesi ile tanımlanır. Bu, JavaScript’e işlevin yürütmesini bitirmesinin zaman alacağını ve yürütülürken diğer görevlere devam edebileceğini söyler.</p>
+<p>Bu, JavaScript’in, asenkron işlevden bir yanıt almadan önce async işlevinin dışındaki diğer işlemleri çalıştırmasına olanak tanır. await anahtar kelimesi, işlevin yürütmesini tamamlaması zaman alan kısmını tanımlar. Yukarıdaki kodun sonucu şudur:</p>
+<pre class="hljs"><code><span class="hljs-title class_">Hello</span>
+<span class="hljs-title class_">Welcome</span> <span class="hljs-title class_">Back</span>!
+</code></pre>
+<p>Görebileceğiniz gibi, “Hello” mesajı “Welcome Back!” mesajından önce görüntüleniyor. Bu, asenkron fonksiyonun arka planda çalıştığı ve &quot;Welcome Back&quot;i görüntülemek için yaklaşık iki saniye beklediği çin olur. JavaScript async fonksiyonu arkaplanda çalıştırırken, async fonksiyondan bir sonuç beklemeden diğer ifadeleri çalıştırmaya devam eder.</p>
+<p>Bu, JavaScript’in görevleri gerçekleştirip, ifadeleri concurrent olarak çalıştırabilmesinin bir örneğidir.</p>
+<p>Callback’ler, promise’ler ve async/await, görevleri event loop ve tarayıcının Web API’leri yardımıyla concurrent olarak çalıştırılmasını sağlayan JavaScript özellikleridir.</p>
+<h2 id="sonu%C3%A7"tabindex="-1">Sonuç</h2>
+<p>Veri işleme sırasında sequential kod yürütülmesi nedeniyle birçok sorunla karşılaşılır. Verilerin işlenmesinin ne kadar süreceğini bilmek zordur. Sequentail bir kod, diğer tüm kodları engeller ve uygulamanın daha fazla yürütülmesini engeller.</p>
+<p>Concurrent kod, sequential kodun engelleme sorununu ortadan kaldırır ve birden çok kullanıcı isteğini veya olayını herhangi bir sorun olmadan aynı anda işleyebilir.</p>
+<p>JavaScript, varsayılan olarak single-threaded bir programlama dilidir ve kodunu sequential olarak çalıştırır. Ancak, JavaScript, CPU ağırlıklı uygulamalar oluştururken en iyi seçenek değildir çünkü JavaScript hala single-threaded bir dildir ve tek bir işlemci çekirdeğinde tek bir işlem çalıştırabilir.</p>
+<p>CPU ağırlıklı uygulamalar geliştirilirken CPU intensive görevleri ele alabilen diğer diller tercih edilmelidir.</p>
+</section>
+        <section id="article-navigation">
+           
+        </section>
+        <section id="article-list-button-container">
+          <a href="/articles.html">
+            <div id="article-list-button">📚</div>
+          </a>
+        </section>
+      </article>
+    </main>
+  
+
