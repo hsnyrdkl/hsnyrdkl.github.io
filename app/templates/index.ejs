@@ -10,27 +10,33 @@
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
     <link rel="preload" href="./styles/index.css" as="style" />
     <link rel="stylesheet" href="./styles/index.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header id="top-container" role="navigation">
       <%- include(process.cwd() + '/app/templates/navigation'); %>
     </header>
     <main id="main-container">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Merhaba</p>
-      <p>Merhaba</p>
-      <p>Merhaba</p>
-      <div>
+      <p>Hi! Please check out the tabs above :)</p>
+
+      <div style="max-width: 200px; height: 200px">
+        <br />
         <script
           src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
           type="module"
         ></script>
 
         <dotlottie-player
-          src="https://lottie.host/4095d303-eff5-4f64-bdfc-8b9f8ca9a4bd/6YutYLo8Mc.lottie"
+          src="https://lottie.host/781b32c0-495f-406c-b5f5-4527e1a54fdf/liXQpcsCba.lottie"
           background="transparent"
           speed="1"
-          style="width: 500px; height: 500px"
+          style="width: 300px; height: auto"
           loop
           autoplay
         ></dotlottie-player>

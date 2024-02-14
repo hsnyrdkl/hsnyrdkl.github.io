@@ -196,8 +196,9 @@
 }
 
 #article-content-container blockquote p {
-  font-family: "Noto Serif KR", serif;
+  font-family: "Courier Prime", monospace;
   font-style: italic;
+  font-size: smaller;
 }
 
 #article-content-container table {

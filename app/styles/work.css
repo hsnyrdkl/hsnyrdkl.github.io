@@ -1,4 +1,4 @@
-@import 'init.css';
+@import "init.css";
 
 #work-container {
   margin-top: 90px;
@@ -37,5 +37,6 @@
 
 #work-container p {
   font-size: 16px;
-  line-height: 200%;
+  line-height: 20px;
+  text-align: justify;
 }
